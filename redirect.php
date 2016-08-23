@@ -1,6 +1,7 @@
 <?php
 /*
 ecwid redirect script
+http://demoshop.pagamastarde.com/ecwid/redirect.php
 */
 
 require_once ("config.php");
@@ -32,7 +33,7 @@ $phone = $_POST['x_phone'];
 $test = $_POST['x_test_request'];
 $dataToEncode = $secret_key . $public_key . $order_id . $amount . $currency . $ok_url . $ko_url . $callback_url;
 //pmt hash
-$signature = sha1($dataToEncode);
+$signature = hash('sha512', $dataToEncode);
 
 //in order to send proper values of the callback, we need to save values in database to grab it on return.
 $db = mysqli_init();

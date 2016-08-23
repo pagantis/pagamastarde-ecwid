@@ -1,6 +1,7 @@
 <?php
 /*
 shopify callback script
+http://demoshop.pagamastarde.com/ecwid/return.php
 */
 require_once ("config.php");
 //recevice original pmt notification
@@ -23,7 +24,7 @@ if ($result = $db->query($sql)) {
   die("SQL error ".$db->error);
 }
 
-header("Location: ".$data['x_return_url']);
+header("Location: ".htmlspecialchars_decode($data['x_return_url']));
 
 
 ?>

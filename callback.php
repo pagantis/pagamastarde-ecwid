@@ -1,6 +1,8 @@
 <?php
 /*
 shopify callback script
+to be placed at:
+http://demoshop.pagamastarde.com/ecwid/callback.php
 */
 require_once ("config.php");
 //recevice original pmt notification
@@ -26,7 +28,8 @@ if ($result = $db->query($sql)) {
 }
 //Paga+Tarde notification validation
 $signature_check = sha1($data['secret_key'].$data['public_key'].$temp['api_version'].$temp['event'].$temp['data']['id']);
-if ($signature_check != $temp['signature'] ){
+$signature_check_sha512 = hash('sha512', $data['secret_key'].$data['public_key'].$temp['api_version'].$temp['event'].$temp['data']['id']);
+if ($signature_check != $temp['signature'] && $signature_check_sha512 != $temp['signature'] ){
   die("Hack detected");
 }
 
